@@ -17,3 +17,53 @@ button.addEventListener("click", () => {
     sum: handleSum(+input1.value, +input2.value),
   });
 });
+
+const person: {
+  name: string;
+  age: number;
+  // nickname: string;
+  hobbies: string[];
+  role: [number, string];
+} = {
+  name: "sameer",
+  age: 30,
+  hobbies: ["Swimming", "Gaming"],
+  role: [2, "author"],
+};
+
+// ts will throw error in below 2
+// we can't assign empty array
+// person.role = [];
+// simply due to type check
+// person.role = ["1", "king"];
+person.role = [1, "king"];
+// we can't assign like this but we can push this is ts caveat
+// person.role = [1, "king", "user"];
+person.role.push("user");
+
+enum Role {
+  ADMIN = "ADMIN",
+  READ_ONLY = 100,
+  AUTHOR = "AUTHOR",
+}
+
+const person2: {
+  name: string;
+  age: number;
+  // nickname: string;
+  hobbies: string[];
+  role: Role;
+} = {
+  name: "sameer",
+  age: 30,
+  hobbies: ["Swimming", "Gaming"],
+  role: Role.AUTHOR,
+};
+
+for (const hobby of person.hobbies) {
+  console.log(hobby.toUpperCase());
+  // hobby.map(); typescript compiler will throw the error here as we it already knows hobby is a string
+  // and it doesn't have map functionality
+}
+
+console.log(person2);
