@@ -1,7 +1,10 @@
+type Combinable = number | string;
+type ResultTypes = "as-text" | "as-number";
+
 const combine = (
-  input1: number | string,
-  input2: number | string,
-  resultType: "as-text" | "as-number"
+  input1: Combinable,
+  input2: Combinable,
+  resultType: ResultTypes,
 ) => {
   let result;
   if (
