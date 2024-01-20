@@ -1,32 +1,37 @@
-class Department {
-  private readonly id: string;
-  name: string;
-  private employees: string[] = [];
-  constructor(id: string, n: string) {
-    this.id = id;
-    this.name = n;
-  }
-  // tip : when using the this inside the functions
-  // try using regular functions instead of the arrow functions
-  describe(this: Department) {
-    console.log(this.name);
-  }
-  addEmployee(name: string) {
-    this.employees.push(name);
-  }
+// use to define type for the objects
+interface Named {
+  // we don't have publi, private,... but we have readonly modifier in interface
+  readonly name: string;
+}
 
-  printEmployeeInformation() {
-    console.log(this.employees);
+// we can extends multiple interfaces in normal classes this wouldn't have been possible
+interface Greetable extends Named {
+  greet(phrase: string): void;
+}
+
+// the class can implements multiple interfaces but the extends of multiple class is not allowed
+class Person implements Greetable {
+  name: string;
+  age: number;
+  constructor(n: string, age: number) {
+    this.name = n;
+    this.age = age;
+  }
+  greet(name: string): void {
+    console.log(`${this.name} greets ${name}`);
   }
 }
 
-const accountingObj1 = new Department("1", "Accounting");
-accountingObj1.describe();
+let user1: Greetable;
 
-accountingObj1.addEmployee("Sameer");
-accountingObj1.addEmployee("Aditya");
-accountingObj1.printEmployeeInformation();
-// const accountingObj2 = {describe : accountingObj1.describe};
-// accountingObj2.describe();
-// const accountingObj3 = {name:'s', describe : accountingObj1.describe};
-// accountingObj3.describe();
+user1 = {
+  name: "sameer",
+  greet(name: string) {
+    console.log(`${this.name} greets ${name}`);
+  },
+};
+console.log(user1);
+
+let user2 = new Person("Kunal", 27);
+console.log(user2);
+user2.greet("sameer");
